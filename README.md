@@ -1,8 +1,13 @@
 # SIGRID
 Systematic Iterative GRID - Global Systematic Grid of points at 1x1 km with sub-nested grids at any spacing
 
+# What is it?
+SIGRID was designed in order to be a Global grid where the distance between plots is homogeneus for any latitude.
+The plots in SIGRID are designed row by row ( East to West), moving North to South, in such a way that the latitude for each row of plots is constant and the distance in degrees that equates to 1.000 meters at that latitude is calculated and applied sequentially to each plot. This guarantees that the distance is very close to 1000 meters at any latitude.
 
-## How to download the grid
+
+
+## How to download SIGRID
 To explore the grid, as it is very large, we have created a KML file that allows for download of the grid in tiles of 10 by 10 degrees.
 
 You can access it through this [Google Earth file (KMZ)](https://raw.githubusercontent.com/herrtunante/SIGRID/main/resources/SIGRID_Grid_1000m_1_subgrid.kmz)
