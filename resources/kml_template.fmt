@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2">
+
+<Document>
+	<name>SIGRID - 10x10 degrees - 1000 meters</name>
+
+<Style id="tile-balloon-style">
+    <BalloonStyle>
+      <text>
+
+<![CDATA[
+
+<!DOCTYPE html>
+<html>
+
+Download the CSV file with all plots at 1000m here : <a href="$[linkUrl]">LINK TO DOWNLOAD ZIPPED GRID</a><br/>
+
+
+Latitude range : <b>$[north]&deg; / $[south]&deg;</b><br/>
+Longitude range : <b>$[west]&deg; / $[east]&deg;</b><br/>
+
+<br/>
+
+</html>
+]]>
+
+      </text>
+    </BalloonStyle>
+	<PolyStyle>
+		<fill>0</fill>
+	</PolyStyle>
+	<LineStyle>
+		<color>FF00FFFF</color>
+		<colorMode>normal</colorMode>
+		<width>2</width>
+	</LineStyle>
+</Style>
+
+	<Style id="red-line-style">
+		<LineStyle>
+			<color>#a00000ff</color>
+			 <colorMode>normal</colorMode>
+			<width>3</width>
+		</LineStyle>
+	</Style>
+
+ <LookAt>
+      <longitude>0</longitude>
+      <latitude>0</latitude>
+      <altitude>0</altitude>
+      <range>15000000</range>
+      <tilt>0</tilt>
+      <heading>0</heading>
+      <altitudeMode>relativeToGround</altitudeMode>
+ </LookAt>
+
+
+ <#-- Iterate over tiles, store values in variable tile -- START -->
+	<#list tiles as tile >
+
+<Folder id="folder_${tile.id}">
+	<name>  ${tile_index} - ID# : ${tile.id}</name>
+	<description></description>
+	<open>0</open>
+	<Style>
+		<ListStyle >
+			<listItemType>checkHideChildren</listItemType>
+		</ListStyle>
+	</Style>
+
+	<Folder >
+		<Region>
+			<LatLonAltBox>
+				<south>${tile.south}</south>
+				<north>${tile.north}</north>
+			  	<west>${tile.west}</west>
+			  	<east>${tile.east}</east>
+				<minAltitude>0</minAltitude>
+				<maxAltitude>0</maxAltitude>
+			</LatLonAltBox>
+			<Lod>
+				<minLodPixels>32</minLodPixels>
+				<maxLodPixels>-1</maxLodPixels>
+				<minFadeExtent>0</minFadeExtent>
+				<maxFadeExtent>0</maxFadeExtent>
+			</Lod>
+		</Region>
+	</Folder>
+
+	<LookAt>
+      <longitude>${tile.centerLong}</longitude>
+      <latitude>${tile.centerLat}</latitude>
+      <altitude>0</altitude>
+      <range>50000</range>
+      <tilt>0</tilt>
+      <heading>0</heading>
+      <altitudeMode>relativeToGround</altitudeMode>
+    </LookAt>
+
+
+
+	<Placemark id="${tile.id}">
+		<name>${tile.id}</name>
+		<ExtendedData>
+		      <Data name="north">
+		        <value>${tile.north}</value>
+		      </Data>
+		      <Data name="south">
+		        <value>${tile.south}</value>
+		      </Data>
+			  <Data name="east">
+		        <value>${tile.east}</value>
+		      </Data>
+		      <Data name="west">
+		        <value>${tile.west}</value>
+		      </Data>
+		      <Data name="linkUrl">
+		        <value>${tile.linkUrl}</value>
+		      </Data>
+     	</ExtendedData>
+     	<gx:balloonVisibility>0</gx:balloonVisibility>
+
+		<LookAt>
+	      <longitude>${tile.centerLong}</longitude>
+	      <latitude>${tile.centerLat}</latitude>
+	      <altitude>0</altitude>
+	      <range>400</range>
+	      <tilt>0</tilt>
+	      <heading>0</heading>
+	      <altitudeMode>relativeToGround</altitudeMode>
+	    </LookAt>
+
+		<styleUrl>#tile-balloon-style</styleUrl>
+
+        <Polygon id="poly_${tile.id}">
+        	<outerBoundaryIs>
+				<LinearRing>
+					<extrude>0</extrude>
+
+					<coordinates>
+						${tile.east},${tile.north},0
+						${tile.west},${tile.north},0
+						${tile.west},${tile.south},0
+						${tile.east},${tile.south},0
+						${tile.east},${tile.north},0
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+
+
+   		</Polygon>
+
+	</Placemark>
+
+	</Folder>
+	</#list>
+	<#-- Iterate over tiles -- END -->
+</Document>
+</kml>
