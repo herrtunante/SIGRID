@@ -24,19 +24,26 @@ public class JDBCStore extends AbstractStore {
 	private PreparedStatement selectStatement;
 	private Logger logger = LoggerFactory.getLogger(JDBCStore.class);
 
-	private static final Boolean USE_SQLITE = false;
+	private static final Boolean USE_SQLITE = Boolean.TRUE; // FLAG to use SQLite or PostgreSQL for the database
 
 	private static final String SQLITE_URL = "jdbc:sqlite:";
-	private static final String POSTGRESQL_URL = "jdbc:postgresql://localhost/sigrid";
+	private static final String SQLITE_FILENAME = "sigrid.db";
+	private static final String POSTGRESQL_URL = "jdbc:postgresql://localhost/sigrid"; // Address od the PostgreSQL
+	private static final String DB_USERNAME = "SET_YOUR_POSTGRESQL_USERNAME"; // Necessary when using PostgreSQL
+	private static final String DB_PASSWORD = "SET_YOUR_POSTGRESQL_PASSWORD"; // Necessary when using PostgreSQL
 
 	private Connection getConnection() throws SQLException {
 		if (connection == null || connection.isClosed() ) {
 			try {
 				Class.forName("org.sqlite.JDBC");
-				File sigridDBFile = new File("sigrid.db");
+				File sigridDBFile = new File(SQLITE_FILENAME);
 				connection = DriverManager.getConnection(
-						Boolean.TRUE.equals(USE_SQLITE) ? SQLITE_URL + sigridDBFile.getAbsolutePath() : POSTGRESQL_URL,
-						"collectearth", "collectearth");
+						Boolean.TRUE.equals(USE_SQLITE) ?
+								SQLITE_URL + sigridDBFile.getAbsolutePath()
+								:
+								POSTGRESQL_URL
+						,
+						DB_USERNAME, DB_PASSWORD);
 			} catch (Exception e) {
 				logger.error("Error loading JDBC driver", e);
 			}
@@ -51,8 +58,8 @@ public class JDBCStore extends AbstractStore {
 	}
 
 	private void createTable() throws IOException, SQLException, URISyntaxException {
-		String createTable = FileUtils.readFileToString(new File(this.getClass().getClassLoader()
-				.getResource(Boolean.TRUE.equals(USE_SQLITE) ? "createTableSqlite.sql" : "createTable.sql").toURI()),
+		String createTable = FileUtils.readFileToString(
+				new File( Boolean.TRUE.equals(USE_SQLITE) ? "resources/createTableSqlite.sql" : "resources/createTable.sql" ),
 				StandardCharsets.UTF_8);
 		try (Statement createStatement = getConnection().createStatement();) {
 			createStatement.executeUpdate(createTable);

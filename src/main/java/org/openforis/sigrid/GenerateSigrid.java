@@ -23,7 +23,7 @@ public class GenerateSigrid{
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private static final AbstractStore STORE = new CSVStore();
+	private static final AbstractStore STORE = new CSVStore(); // By default the Plots will be generated in CSVs... you can instead use JDBCStore to use an SQLite or PostgreSQL DB
 
 
 	public void generate(){
