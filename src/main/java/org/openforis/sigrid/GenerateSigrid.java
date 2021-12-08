@@ -8,8 +8,8 @@ public class GenerateSigrid{
 
 	public static void main(String[] args)  {
 		GenerateSigrid globalGrid = new GenerateSigrid();
-		// globalGrid.generate(); // Generates ALL of the plots of the SIGRID grid and stores them into a DB
-		globalGrid.generate( -160d, -70d, -170d, -80d); // Generates plots for quadrant EAST (maxX), NORTH (maxY), WEST (minX), SOUTH (minY)
+		globalGrid.generate(); // Generates ALL of the plots of the SIGRID grid and stores them into a DB
+		//globalGrid.generate( -160d, -70d, -170d, -80d); // Generates plots for quadrant EAST (maxX), NORTH (maxY), WEST (minX), SOUTH (minY)
 
 	}
 
