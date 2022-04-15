@@ -5,12 +5,13 @@ Systematic Iterative GRID - Global Systematic Grid of points at 1x1 km with sub-
 SIGRID was designed in order to be a Global grid where the distance between plots is homogeneous for any latitude.
 The plots in SIGRID are designed row by row ( East to West), moving North to South, in such a way that the latitude for each row of plots is constant and the distance in degrees that equates to 1.000 meters at that latitude is calculated and applied sequentially to each plot. This guarantees that the distance is very close to 1000 meters at any latitude.
 
-This image represents the SIGRID plots when stratified to 200km distance ( you can [download the KMZ file here](https://raw.githubusercontent.com/herrtunante/SIGRID/main/resources/SIGRID - Example at 200km distance.kmz) )
+This image represents the SIGRID plots when stratified to 200km distance ( you can [download the KMZ file here](https://raw.githubusercontent.com/herrtunante/SIGRID/main/resources/SIGRID%20-%20Example%20at%20200km%20distance.kmz) )
+![googleearth_2022-04-15_11-07-21](https://user-images.githubusercontent.com/4435566/163554788-8a4431d0-6141-4584-95ce-fc62ba64c444.jpg)
 
 
-This is the detail of the original SIGRID plots at 1000 m distance in an area in northern Europe :
+This is the detail of the SIGRID plots at 1000 m distance in an area in northern Europe where other grid types generate distortions on the spacing due to the high latitude:
 
-
+![googleearth_2022-04-15_11-32-50](https://user-images.githubusercontent.com/4435566/163554751-255a1a9a-9db4-4a20-bd1f-40e7c815fdd3.jpg)
 
 
 
