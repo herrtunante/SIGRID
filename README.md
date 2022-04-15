@@ -41,6 +41,14 @@ The CSVs that can be downloaded from the links provided in [the KMZ file](https:
 |2790_8991|59.9949504 |29.8955296 |true                         |false                        |true                         |false                        |false                        |false                        |false                        |true                         |false                         |false                         |false                         |false                         |false                         |false                         |false                         |false                         |false                          |
 
 
+The column **CE_ID** is the unique ID of the plot, composed of two number **Y_X**. The **Y** represents the row from the starting point of the grid generation 85 degrees North, 169 degrees East (i.e. 2000_3300 means 2.000 km south of the starting latitude of the grid - which is 85 degrees North - and 3.300 km West of the starting longitude - which is 169 degrees East ). 
+
+This is followed by the Latitude (yCoordinate) and Longitude (xCoordinate) of the center of the plot. 
+
+The columns that follow indicate to which subgrid the plot belongs to . All the plots belong to the subgrid 1 (1000 m distance) while on quarter of the plots belong to the 2x2 km subgrid, one sixteenth of the plots belong to the 4x4 km subgrid, one twentifith of the plots belong to the 5x5 km  and so on. The information of the subgrid columns can be combined to filter the plots into any desired subgrid. I.e. the grid of plots for 18 x18 km is the plots that belong to both the 9km subgrid and the 6km subgrid ( using the filters in tools like Excel). 
+
+Having a homogeneus grid like SIGRID allows to generate Collect Earth assessments that can be easily intensified. You could start with an 8x8 km grid and depending on your resources or accuracy goals on the assessment easily move on to the remaining plots in the 4x4 km grid that were not assessed already. Again, you could move to the 2x2km grid following the same logic and even to a 1x1 km grid to achieve maximum accuracy.
+
 ## How to reproduce the grid
 
 In order to reproduce the grid you need to clone this repository and execute the main class of `GenerateSigrid.java` [(code)](https://github.com/herrtunante/SIGRID/blob/main/src/main/java/org/openforis/sigrid/GenerateSigrid.java)
