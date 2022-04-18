@@ -29,7 +29,7 @@ Locate the area for which you need the grid points and then click on the tile. T
 
 You can also find the list with all of grids by tile (10 by 10 degrees) directly [from the Open Foris page](https://openforis.org/fileadmin/SIGRID_1000m_grids/)
 
-Each ZIP file with the points for a tile is composed of two files ( as the number of points in the tiles close to the equator is above 1.2 million )
+Each ZIP file with the points for a tile is composed of two CSV files as the number of points in the tiles close to the equator is above 1.2 million.
 
 ### Data format
 
