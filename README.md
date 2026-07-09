@@ -72,7 +72,42 @@ Note for Collect Earth users: Google Earth degrades with files above ~2,000 plac
 
 ## How to reproduce the grid
 
-In order to reproduce the grid you need to clone this repository and execute the main class of `GenerateSigrid.java` [(code)](https://github.com/herrtunante/SIGRID/blob/main/src/main/java/org/openforis/sigrid/GenerateSigrid.java)
+You need a Java JDK (8 or newer) and [Maven](https://maven.apache.org/). Clone the repository, build it and run the main class of `GenerateSigrid.java` [(code)](https://github.com/herrtunante/SIGRID/blob/main/src/main/java/org/openforis/sigrid/GenerateSigrid.java):
 
-There is an option in the code to limit the plots to those within a bounding box, specifying North, South, East, West coordinates.
-This is handy as generating all of the plots worldwide can take up to one day on a standard computer.
+```bash
+git clone https://github.com/herrtunante/SIGRID.git
+cd SIGRID
+mvn clean compile
+mvn exec:java -Dexec.mainClass=org.openforis.sigrid.GenerateSigrid
+```
+
+You can also simply run the `main` method of `GenerateSigrid` from your IDE. Either way, **run it with the repository root as the working directory**: the code reads the SQL scripts in `resources/` through relative paths and writes its results to an `output/` folder that it creates there.
+
+By default this generates the plots for the whole globe (85&deg;N to 85&deg;S) and writes them as one zipped CSV per sub-grid density into `output/` (`global_1000m_1_subgrid.csv.zip`, `global_1000m_2_subgrid.csv.zip` ... `global_1000m_100_subgrid.csv.zip`). Files with more than 500,000 plots are split into several CSVs inside the ZIP.
+
+### Generating only a region
+
+Generating all of the plots worldwide can take up to one day on a standard computer, so there is an option to limit the plots to those within a bounding box. In the `main` method of `GenerateSigrid`, comment out `globalGrid.generate()` and use the call that takes a bounding box, specifying the East, North, West and South limits in decimal degrees:
+
+```java
+// East, North, West, South
+globalGrid.generate( 40d, 20d, 30d, 10d ); // plots between longitudes 30-40 and latitudes 10-20
+```
+
+A 10x10 degree box like this one (about 1.2 million plots) generates in under a minute, because entire rows outside the latitude range are skipped.
+
+### Storing the plots in a database
+
+The `STORE` constant in `GenerateSigrid` selects where the plots go. The default is `CSVStore` (the CSV files described above); change it to `new JDBCStore()` to write into a database instead. `JDBCStore` uses an SQLite file (`sigrid.db` in the working directory) by default; to use PostgreSQL instead, set `USE_SQLITE` to `false` in `JDBCStore.java` and fill in the connection URL and credentials there.
+
+Once the plots are in a database, `QuerySigrid.java` [(code)](https://github.com/herrtunante/SIGRID/blob/main/src/main/java/org/openforis/sigrid/QuerySigrid.java) can export them without regenerating anything:
+
+- `writeCsvFromBoundingBox(...)` exports the plots of any bounding box and sub-grid to CSV — the `main` method contains many commented examples for individual countries that you can adapt.
+- `generateTiledGridsAll()` exports the 10x10 degree tiles published on the Open Foris server.
+- `generateKmlGrids(...)` regenerates the tile-browser KML from the FreeMarker template in `resources/kml_template.fmt`.
+
+```bash
+mvn exec:java -Dexec.mainClass=org.openforis.sigrid.QuerySigrid
+```
+
+Note: the layout of the `gridflags` bitmask column changed in 2026 (the previous encoding could not represent the 50 km and 100 km sub-grids). A database populated with the old code can be converted in place by running `resources/migrateGridflags.sql` against it.
