@@ -1,0 +1,199 @@
+iso2,iso3,name,n_adm1,n_adm2,clon,clat,n_tiles,status
+af,AFG,Afghanistan,34,399,61.9597,30.1649,3,ok
+al,ALB,Albania,36,374,19.66605,42.51795,4,ok
+dz,DZA,Algeria,48,48,4.47957,24.3399,6,ok
+ad,AND,Andorra,7,7,1.6553,42.58815,1,ok
+ao,AGO,Angola,18,160,23.1582,-12.14945,4,ok
+aq,ATA,Antarctica,0,1,66.89733,-76.56015,55,ok
+ag,ATG,Antigua and Barbuda,0,1,-61.80055,17.0849,1,ok
+ar,ARG,Argentina,24,510,-67.71859,-47.30695,10,ok
+am,ARM,Armenia,12,40,45.9788,39.57915,2,ok
+au,AUS,Australia,10,642,133.49769,-18.90375,17,ok
+at,AUT,Austria,9,94,14.21373,47.51,2,ok
+az,AZE,Azerbaijan,73,73,51.00142,40.4867,4,ok
+bs,BHS,Bahamas,22,33,-78.06715,24.58815,2,ok
+bh,BHR,Bahrain,12,12,50.58476,25.97355,1,ok
+bd,BGD,Bangladesh,8,64,92.21756,22.79345,2,ok
+bb,BRB,Barbados,0,1,-59.56002,13.1869,1,ok
+by,BLR,Belarus,7,120,30.04009,55.5714,2,ok
+be,BEL,Belgium,3,11,5.44406,49.96365,2,ok
+bz,BLZ,Belize,6,6,-88.89578,16.93945,1,ok
+bj,BEN,Benin,12,77,2.55114,9.2293,2,ok
+bt,BTN,Bhutan,20,205,90.03981,27.9713,2,ok
+bo,BOL,Bolivia (Plurinational State of),10,113,-61.38722,-19.2055,5,ok
+ba,BIH,Bosnia and Herzegovina,0,1,17.95655,43.91195,1,ok
+bw,BWA,Botswana,10,10,25.88287,-21.4739,3,ok
+br,BRA,Brazil,29,5508,-54.2989,-6.2626,18,ok
+bn,BRN,Brunei Darussalam,4,38,114.66868,4.31035,1,ok
+bg,BGR,Bulgaria,28,261,26.33854,42.7021,1,ok
+bf,BFA,Burkina Faso,13,45,1.77452,12.1349,3,ok
+bi,BDI,Burundi,19,120,29.31785,-3.8988,2,ok
+cv,CPV,Cabo Verde,22,32,-25.20561,17.01005,1,ok
+kh,KHM,Cambodia,26,198,106.03826,13.0185,2,ok
+cm,CMR,Cameroon,10,58,14.34034,8.1914,3,ok
+ca,CAN,Canada,13,296,-70.3895,55.75425,34,ok
+cf,CAF,Central African Republic,17,71,23.79501,7.661,3,ok
+td,TCD,Chad,23,70,18.99175,20.828,6,ok
+cl,CHL,Chile,0,1,-71.48208,-35.7002,12,ok
+cn,CHN,China,32,901,88.17533,39.5597,22,ok
+co,COL,Colombia,33,1116,-69.41798,4.1554,6,ok
+km,COM,Comoros,3,17,43.36768,-11.65605,1,ok
+cg,COG,Congo,12,88,16.14474,1.37915,2,ok
+cr,CRI,Costa Rica,7,82,-84.42591,10.6205,2,ok
+hr,HRV,Croatia,0,1,15.33852,44.7475,1,ok
+cu,CUB,Cuba,16,169,-81.55858,22.32775,3,ok
+cy,CYP,Cyprus,6,6,33.07022,35.08795,1,ok
+cz,CZE,Czechia,14,77,13.39458,49.24345,2,ok
+ci,CIV,Côte d'Ivoire,14,33,-3.32828,9.0807,2,ok
+kp,PRK,Democratic People's Republic of Korea,11,183,127.24402,40.4968,3,ok
+cd,COD,Democratic Republic of the Congo,26,187,26.99414,0.79885,7,ok
+dk,DNK,Denmark,17,274,9.02155,54.92705,2,ok
+dj,DJI,Djibouti,6,23,42.06065,11.5297,1,ok
+dm,DMA,Dominica,10,10,-61.35056,15.54465,1,ok
+do,DOM,Dominican Republic,33,156,-68.68613,18.7059,2,ok
+ec,ECU,Ecuador,24,221,-76.84709,-1.94425,6,ok
+eg,EGY,Egypt,26,27,28.93827,24.84845,4,ok
+sv,SLV,El Salvador,15,264,-89.40436,14.30545,2,ok
+gq,GNQ,Equatorial Guinea,0,1,10.47167,1.6297,3,ok
+er,ERI,Eritrea,0,1,38.07383,15.1722,2,ok
+ee,EST,Estonia,15,223,27.43564,58.8791,1,ok
+sz,SWZ,Eswatini,4,59,31.81412,-26.1087,1,ok
+et,ETH,Ethiopia,11,11,44.43066,7.23965,4,ok
+fj,FJI,Fiji,4,15,177.69611,-17.67985,3,ok
+fi,FIN,Finland,6,20,26.55167,67.8284,4,ok
+fr,FRA,France,22,96,-0.60873,44.88035,3,ok
+ga,GAB,Gabon,9,48,12.85621,0.6112,4,ok
+gm,GMB,Gambia,6,37,-14.08262,13.3383,1,ok
+ps,PSE,Gaza,2,16,35.12124,31.50975,1,ok
+ge,GEO,Georgia,12,74,42.49808,43.03465,1,ok
+de,DEU,Germany,16,402,13.06178,53.58025,4,ok
+gh,GHA,Ghana,10,216,-0.5824,8.6611,4,ok
+gr,GRC,Greece,13,52,22.49611,39.6446,3,ok
+gl,GRL,Greenland,0,1,-40.37064,71.80135,12,ok
+gd,GRD,Grenada,0,1,-61.68523,12.1057,1,ok
+gt,GTM,Guatemala,23,343,-90.45207,17.5627,2,ok
+gn,GIN,Guinea,8,38,-9.54874,11.68485,4,ok
+gw,GNB,Guinea-Bissau,9,39,-14.10048,11.862,1,ok
+gy,GUY,Guyana,10,26,-59.99075,5.93165,2,ok
+ht,HTI,Haiti,10,41,-72.07469,18.5469,2,ok
+va,VAT,Holy See,0,1,12.4529,41.90385,1,ok
+hn,HND,Honduras,18,298,-84.01149,15.10865,1,ok
+hu,HUN,Hungary,7,20,19.34164,46.52535,2,ok
+is,ISL,Iceland,74,74,-15.67004,65.09635,2,ok
+in,IND,India,35,639,69.80137,23.709,11,ok
+id,IDN,Indonesia,33,443,115.75365,2.596,13,ok
+ir,IRN,Iran (Islamic Republic of),32,430,51.02492,37.63465,6,ok
+iq,IRQ,Iraq,18,100,41.36674,32.2672,3,ok
+ie,IRL,Ireland,31,31,-8.8957,51.91895,2,ok
+il,ISR,Israel,6,6,34.88287,30.6873,2,ok
+it,ITA,Italy,20,107,11.23139,46.65535,4,ok
+jm,JAM,Jamaica,13,13,-77.25019,18.3308,1,ok
+jp,JPN,Japan,47,3350,143.46703,43.37325,9,ok
+jo,JOR,Jordan,12,51,36.54993,30.2214,2,ok
+kz,KAZ,Kazakhstan,18,177,66.86626,47.9548,10,ok
+ke,KEN,Kenya,8,68,37.48777,2.86055,4,ok
+ki,KIR,Kiribati,0,1,-157.68408,1.881,8,ok
+kw,KWT,Kuwait,0,1,47.42447,29.31085,2,ok
+kg,KGZ,Kyrgyzstan,10,57,75.45152,40.85695,5,ok
+la,LAO,Lao People's Democratic Republic,18,148,105.20063,17.9278,2,ok
+lv,LVA,Latvia,119,119,27.17434,56.5,1,ok
+lb,LBN,Lebanon,8,26,36.28495,34.1301,1,ok
+ls,LSO,Lesotho,10,80,28.98063,-29.6763,2,ok
+lr,LBR,Liberia,16,138,-9.68843,7.91805,2,ok
+ly,LBY,Libya,3,22,22.0885,23.97305,7,ok
+li,LIE,Liechtenstein,11,11,9.54143,47.0865,1,ok
+lt,LTU,Lithuania,10,65,23.78071,56.10055,1,ok
+lu,LUX,Luxembourg,3,12,5.98626,50.064,2,ok
+mg,MDG,Madagascar,6,22,44.43674,-23.09955,3,ok
+mw,MWI,Malawi,4,29,34.31947,-11.96035,2,ok
+my,MYS,Malaysia,0,1,114.64883,3.94535,3,ok
+mv,MDV,Maldives,21,21,73.53504,4.20705,2,ok
+ml,MLI,Mali,9,55,-2.92598,20.81515,5,ok
+mt,MLT,Malta,68,68,14.37481,35.8896,1,ok
+mh,MHL,Marshall Islands,0,1,171.09368,7.1067,4,ok
+mr,MRT,Mauritania,13,57,-10.56833,23.14485,4,ok
+mu,MUS,Mauritius,10,12,57.72207,-20.22355,4,ok
+mx,MEX,Mexico,32,2458,-115.23141,30.19265,10,ok
+fm,FSM,Micronesia (Federated States of),0,1,158.23916,6.88445,6,ok
+mc,MCO,Monaco,0,1,7.42485,43.7381,1,ok
+mn,MNG,Mongolia,22,337,118.33876,47.2022,7,ok
+me,MNE,Montenegro,0,1,19.29668,42.7009,2,ok
+ma,MAR,Morocco,11,71,-2.63276,32.7221,3,ok
+mz,MOZ,Mozambique,12,156,37.58327,-11.96705,3,ok
+mm,MMR,Myanmar,15,75,97.70861,25.8308,4,ok
+na,NAM,Namibia,14,121,15.87948,-26.7357,4,ok
+nr,NRU,Nauru,0,1,166.92163,-0.5298,1,ok
+np,NPL,Nepal,7,77,83.03594,29.21475,2,ok
+nl,NLD,Netherlands,11,15,5.89122,53.1343,1,ok
+nz,NZL,New Zealand,17,80,168.12166,-45.4659,7,ok
+ni,NIC,Nicaragua,18,151,-84.3527,14.57165,1,ok
+ne,NER,Niger,8,63,13.48399,20.30755,4,ok
+ng,NGA,Nigeria,38,775,4.07714,10.24395,4,ok
+mk,MKD,North Macedonia,81,84,21.62886,41.2833,1,ok
+no,NOR,Norway,19,435,23.57748,69.1421,9,ok
+om,OMN,Oman,0,1,56.98444,20.82305,2,ok
+pk,PAK,Pakistan,5,136,63.41577,28.86775,4,ok
+pw,PLW,Palau,0,1,134.56971,7.53105,1,ok
+pa,PAN,Panama,13,76,-78.26172,9.1073,2,ok
+pg,PNG,Papua New Guinea,22,87,142.16265,-7.33725,4,ok
+py,PRY,Paraguay,17,219,-60.99939,-21.04255,4,ok
+pe,PER,Peru,26,195,-74.18825,-2.31615,5,ok
+ph,PHL,Philippines,17,82,118.67674,9.87615,5,ok
+pl,POL,Poland,16,379,23.55654,53.1184,4,ok
+pt,PRT,Portugal,29,308,-8.57207,37.6192,5,ok
+qa,QAT,Qatar,8,90,51.21054,24.91105,1,ok
+kr,KOR,Republic of Korea,18,227,127.05773,38.13195,2,ok
+md,MDA,Republic of Moldova,37,37,29.51834,46.96345,2,ok
+ro,ROU,Romania,42,42,25.83484,47.5315,1,ok
+ru,RUS,Russian Federation,92,93,129.27385,64.729,60,ok
+rw,RWA,Rwanda,12,154,29.22303,-2.08925,2,ok
+kn,KNA,Saint Kitts and Nevis,14,14,-62.66777,17.2714,1,ok
+lc,LCA,Saint Lucia,9,9,-60.9676,13.77005,1,ok
+vc,VCT,Saint Vincent and the Grenadines,0,1,-61.1957,13.2462,1,ok
+ws,WSM,Samoa,0,1,-172.43595,-13.61695,1,ok
+sm,SMR,San Marino,0,1,12.46057,43.94355,1,ok
+st,STP,Sao Tome and Principe,0,1,6.60553,0.22265,2,ok
+sa,SAU,Saudi Arabia,13,14,50.32713,23.11845,7,ok
+sn,SEN,Senegal,14,45,-15.16608,15.3177,1,ok
+rs,SRB,Serbia,3,193,20.57184,43.6349,2,ok
+sc,SYC,Seychelles,0,1,55.48898,-4.68835,4,ok
+sl,SLE,Sierra Leone,4,13,-11.28077,9.34215,1,ok
+sg,SGP,Singapore,0,1,103.82822,1.36565,1,ok
+sk,SVK,Slovakia,8,79,20.97283,48.6993,2,ok
+si,SVN,Slovenia,12,211,14.87782,45.61875,1,ok
+sb,SLB,Solomon Islands,0,1,160.14219,-9.59615,4,ok
+so,SOM,Somalia,18,73,41.83727,0.52525,5,ok
+za,ZAF,South Africa,9,52,19.94463,-30.4932,6,ok
+ss,SSD,South Sudan,10,79,25.2247,8.55075,4,ok
+es,ESP,Spain,19,52,-6.17343,38.6747,5,ok
+lk,LKA,Sri Lanka,9,25,80.44028,8.36815,2,ok
+sd,SDN,Sudan,18,173,25.74907,18.2615,6,ok
+sr,SUR,Suriname,10,62,-54.72924,3.8519,1,ok
+se,SWE,Sweden,21,289,20.64467,68.20875,3,ok
+ch,CHE,Switzerland,26,26,9.56477,46.61755,2,ok
+sy,SYR,Syrian Arab Republic,14,61,38.81322,34.46625,2,ok
+tj,TJK,Tajikistan,4,55,73.71712,38.35275,4,ok
+th,THA,Thailand,77,814,98.85683,15.78855,6,ok
+tl,TLS,Timor-Leste,13,67,127.00792,-8.54095,1,ok
+tg,TGO,Togo,5,39,0.96693,8.70815,3,ok
+to,TON,Tonga,5,23,-174.92061,-21.37175,2,ok
+tt,TTO,Trinidad and Tobago,15,15,-61.13042,10.65005,1,ok
+tn,TUN,Tunisia,24,267,9.48655,31.5082,2,ok
+tm,TKM,Turkmenistan,7,61,52.55115,39.7285,4,ok
+tv,TUV,Tuvalu,0,1,178.691,-7.47155,1,ok
+tr,TUR,Türkiye,81,973,43.62552,38.12525,6,ok
+ug,UGA,Uganda,15,135,33.19858,-0.21135,4,ok
+ua,UKR,Ukraine,28,140,28.34587,51.164,5,ok
+ae,ARE,United Arab Emirates,0,1,55.14491,24.3502,1,ok
+gb,GBR,United Kingdom,4,217,-4.91587,57.58335,4,ok
+tz,TZA,United Republic of Tanzania,31,177,37.91362,-9.19065,4,ok
+us,USA,United States of America,52,3145,-153.55409,65.22125,35,ok
+uy,URY,Uruguay,20,22,-55.50889,-32.02905,1,ok
+uz,UZB,Uzbekistan,15,224,57.16008,43.437,5,ok
+vu,VUT,Vanuatu,5,66,166.74825,-15.0355,3,ok
+ve,VEN,Venezuela,26,300,-65.84242,3.6495,5,ok
+vn,VNM,Viet Nam,0,1,107.86541,15.982,3,ok
+eh,ESH,Western Sahara,0,1,-13.7158,24.23215,2,ok
+ye,YEM,Yemen,22,332,45.84187,16.59825,2,ok
+zm,ZMB,Zambia,10,115,26.25619,-13.79245,4,ok
+zw,ZWE,Zimbabwe,11,60,26.73041,-18.8482,4,ok

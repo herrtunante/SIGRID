@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# Generated data. Everything here is reproducible from the scripts; none of it
+# belongs in git. The full output is tens of GB.
+# ---------------------------------------------------------------------------
+
+# Downloaded SIGRID tile ZIPs (~3 GB) and cached UN boundary GeoJSONs
+sigrid_cache/
+
+# Intermediate per-tile / per-country parts and combined CSVs
+_tmp/
+tmp*/
+
+# Per-country ZIPs + manifest produced by build_all_countries.py
+output/
+per_country/
+*_grids.zip
+*_grids_no_districts.zip
+manifest.csv
+
+# Density CSVs produced by sigrid_country.py
+*_plots_with_districts.csv
+*_by_density/
+*_1x1km.csv
+*_2x2km.csv
+*_[0-9]x[0-9]km.csv
+*_[0-9][0-9]x[0-9][0-9]km.csv
+*_[0-9][0-9][0-9]x[0-9][0-9][0-9]km.csv
+*_plot_counts_by_district.csv
+
+# Raw SIGRID tiles if unpacked next to the scripts
+SIGRID_x_*.csv
+SIGRID_x_*.csv.zip
+
+# Browse artefacts rebuilt by make_kmz_html.py
+site/
+index.html
+SIGRID_country_grids.kmz
+
+# NOTE: countries.csv and country_tiles.json ARE committed on purpose.
+# They are small, and they let anyone run build_all_countries.py without
+# first re-running harvest_countries.py (which hits ~198 remote files).
+!countries.csv
+!country_tiles.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.~lock.*#
+*.swp
+.idea/
+.vscode/
+/grids_pilot/
