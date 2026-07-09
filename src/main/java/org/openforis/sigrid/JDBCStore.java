@@ -22,6 +22,7 @@ public class JDBCStore extends AbstractStore {
 	Connection connection = null;
 	private PreparedStatement insertStatement;
 	private PreparedStatement selectStatement;
+	private PreparedStatement selectAllStatement;
 	private Logger logger = LoggerFactory.getLogger(JDBCStore.class);
 
 	private static final Boolean USE_SQLITE = Boolean.TRUE; // FLAG to use SQLite or PostgreSQL for the database
@@ -88,13 +89,28 @@ public class JDBCStore extends AbstractStore {
 	}
 
 	private PreparedStatement getAllStatement() throws SQLException {
-		if (selectStatement == null) {
+		if (selectAllStatement == null) {
 			String sql = "SELECT * FROM plot" + " WHERE " + " griddistance = ? " + " AND " + " gridflags & ? = ?"
 			// + " LIMIT ? OFFSET ?"
 			;
-			selectStatement = getConnection().prepareStatement(sql);
+			selectAllStatement = getConnection().prepareStatement(sql);
 		}
-		return selectStatement;
+		return selectAllStatement;
+	}
+
+	/**
+	 * Returns the bitmask flag for a subgrid distance. The bit position is the index of the distance
+	 * in the distances array (17 densities, bits 0-16), NOT the distance value itself: shifting by the
+	 * distance overflows the int for the 50 and 100 km subgrids (Java shifts modulo 32).
+	 */
+	private int getGridFlag(Integer gridDistance) {
+		Integer[] distances = getDistances();
+		for (int i = 0; i < distances.length; i++) {
+			if (distances[i].equals(gridDistance)) {
+				return 1 << i;
+			}
+		}
+		throw new IllegalArgumentException("Unknown subgrid distance: " + gridDistance);
 	}
 
 	@Override
@@ -102,8 +118,8 @@ public class JDBCStore extends AbstractStore {
 
 		int gridFlags = 0;
 		for (Integer d : getDistances()) {
-			if (column % d + row % d == 0) {
-				gridFlags = gridFlags | (1 << d);
+			if (belongsToGrid(row, column, d)) {
+				gridFlags = gridFlags | getGridFlag(d);
 			}
 		}
 
@@ -113,12 +129,12 @@ public class JDBCStore extends AbstractStore {
 			getInsertStatement().setInt(2, row);
 			getInsertStatement().setInt(3, column);
 			getInsertStatement().setInt(4, gridFlags);
-			getInsertStatement().setInt(5, Math.round(longitude.floatValue() * SCALING_FACTOR));
-			getInsertStatement().setInt(6, Math.round(latitude.floatValue() * SCALING_FACTOR));
+			getInsertStatement().setInt(5, (int) Math.round(longitude * SCALING_FACTOR));
+			getInsertStatement().setInt(6, (int) Math.round(latitude * SCALING_FACTOR));
 
 			getInsertStatement().addBatch();
 			count++;
-			// execute every 100 rows or less
+			// execute the batch every 50000 rows
 			if (count % 50000 == 0) {
 				logger.info("Flushing to DB {}", count);
 				getInsertStatement().executeBatch();
@@ -132,15 +148,15 @@ public class JDBCStore extends AbstractStore {
 
 	public ResultSet getPlots(Integer grid, Double maxX, Double maxY, Double minX, Double minY, Integer distance) {
 
-		int gridFlags = (int) Math.pow(2, grid);
+		int gridFlags = getGridFlag(grid);
 		ResultSet results = null;
 
 		try {
 
-			getSelectStatement().setInt(1, Math.round(maxX.floatValue() * SCALING_FACTOR));
-			getSelectStatement().setInt(2, Math.round(maxY.floatValue() * SCALING_FACTOR));
-			getSelectStatement().setInt(3, Math.round(minX.floatValue() * SCALING_FACTOR));
-			getSelectStatement().setInt(4, Math.round(minY.floatValue() * SCALING_FACTOR));
+			getSelectStatement().setInt(1, (int) Math.round(maxX * SCALING_FACTOR));
+			getSelectStatement().setInt(2, (int) Math.round(maxY * SCALING_FACTOR));
+			getSelectStatement().setInt(3, (int) Math.round(minX * SCALING_FACTOR));
+			getSelectStatement().setInt(4, (int) Math.round(minY * SCALING_FACTOR));
 			getSelectStatement().setInt(5, Math.round(distance.floatValue()));
 			getSelectStatement().setInt(6, gridFlags);
 			getSelectStatement().setInt(7, gridFlags);
@@ -157,7 +173,7 @@ public class JDBCStore extends AbstractStore {
 
 	public ResultSet getAllPlots(Integer grid, Integer distance) {
 
-		int gridFlags = (int) Math.pow(2, grid);
+		int gridFlags = getGridFlag(grid);
 		ResultSet results = null;
 
 		try {
@@ -186,6 +202,7 @@ public class JDBCStore extends AbstractStore {
 			if (getConnection() != null) {
 				getConnection().close();
 				selectStatement = null;
+				selectAllStatement = null;
 				insertStatement = null;
 			}
 		} catch (SQLException e) {

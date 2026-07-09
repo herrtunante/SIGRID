@@ -36,7 +36,7 @@ public class CoordinateUtils {
 		try {
 
 			if (offsetLatitudeMeters == 0 && offsetLongitudeMeters == 0) {
-				return movedPointLatLong;
+				return new double[]{ originalLatLong[0], originalLatLong[1] };
 			} else {
 
 				double longitudeDirection = 90; // EAST
@@ -71,9 +71,14 @@ public class CoordinateUtils {
 		} catch (final Exception e) {
 			logger.error(
 					"Exception when moving point {} with offset longitude {} and latitude {}", Arrays.toString(originalLatLong), offsetLongitudeMeters, offsetLatitudeMeters, e);
+			TransformException transformException = new TransformException(
+					"Error moving point " + Arrays.toString(originalLatLong) + " with offset longitude "
+							+ offsetLongitudeMeters + " and latitude " + offsetLatitudeMeters);
+			transformException.initCause(e);
+			throw transformException;
 		}
 
-		return( movedPointLatLong!= null ? new double[]{ movedPointLatLong[1], movedPointLatLong[0]}:null);
+		return new double[]{ movedPointLatLong[1], movedPointLatLong[0] };
 
 	}
 

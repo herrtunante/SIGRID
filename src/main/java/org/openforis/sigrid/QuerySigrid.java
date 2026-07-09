@@ -29,10 +29,6 @@ public class QuerySigrid {
 	private static Logger logger = LoggerFactory.getLogger( QuerySigrid.class );
 	private static final int OFFSET_DEGREES = 10;
 
-	public ResultSet getSigridForShapefile(File shapefile, Integer gridDistance, Integer grid) {
-		return null;
-	}
-
 	public ResultSet getSigridForBoundingBox(Double[] boundingBox, Integer gridDistance, Integer grid) {
 		return database.getPlots(grid, boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3], gridDistance);
 	}
@@ -46,12 +42,16 @@ public class QuerySigrid {
 			boolean zipOutput) {
 
 		ResultSet results = getSigridForBoundingBox(boundingBox, gridDistance, grid);
+		if (results == null) {
+			logger.error("No results could be read from the DB, skipping CSV generation for {}", prefix);
+			return;
+		}
 		try {
 			csv.initializeStore(gridDistance, prefix, zipOutput);
 
 			while (results.next()) {
-				csv.savePlot(results.getInt("ycoordinate") * 1d / AbstractStore.SCALING_FACTOR * 1d,
-						results.getInt("xcoordinate") * 1d / AbstractStore.SCALING_FACTOR * 1d, results.getInt("row"),
+				csv.savePlot(results.getInt("ycoordinate") / (double) AbstractStore.SCALING_FACTOR,
+						results.getInt("xcoordinate") / (double) AbstractStore.SCALING_FACTOR, results.getInt("row"),
 						results.getInt("col"));
 			}
 			results.close();
@@ -116,12 +116,12 @@ public class QuerySigrid {
 
 				Tile tile = new Tile();
 				tile.setId( "Lat:" + latitude + "_" + (latitude + OFFSET_DEGREES ) +  "_Long:" + longitude + "_" + (longitude + OFFSET_DEGREES )) ;
-				tile.setCenterLat( (latitude + OFFSET_DEGREES) / 2 );
-				tile.setCenterLong( (longitude + OFFSET_DEGREES) / 2 );
+				tile.setCenterLat( latitude + OFFSET_DEGREES / 2 );
+				tile.setCenterLong( longitude + OFFSET_DEGREES / 2 );
 				tile.setEast( longitude + OFFSET_DEGREES  );
 				tile.setWest(longitude);
-				tile.setNorth(latitude);
-				tile.setSouth( latitude + OFFSET_DEGREES );
+				tile.setNorth( latitude + OFFSET_DEGREES );
+				tile.setSouth(latitude);
 				tile.setLinkUrl(
 						"https://www.openforis.org/fileadmin/SIGRID_1000m_grids/" + prefix +
 							"_x_" + longitude + "_" + ( longitude + OFFSET_DEGREES ) + "_y_"	+ latitude  + "_" + ( latitude + OFFSET_DEGREES) +
@@ -136,7 +136,10 @@ public class QuerySigrid {
 		try {
 
 			File templateFile = new File("resources/kml_template.fmt");
-			File outputFile = new File("resources/SIGRID_Grid"+"_" + gridDistance + "m_" + grid + "_subgrid.kml" );
+			File outputDir = new File("output");
+			if (!outputDir.isDirectory())
+				outputDir.mkdir();
+			File outputFile = new File(outputDir, "SIGRID_Grid"+"_" + gridDistance + "m_" + grid + "_subgrid.kml" );
 
 			applyTemplate( templateFile, outputFile, data);
 
@@ -175,12 +178,16 @@ public class QuerySigrid {
 	public void writeCsvForAll(Integer gridDistance, Integer grid, String prefix, boolean zipOutput) {
 
 		ResultSet results = getSigridAll(gridDistance, grid);
+		if (results == null) {
+			logger.error("No results could be read from the DB, skipping CSV generation for {}", prefix);
+			return;
+		}
 		try {
 			csv.initializeStore(gridDistance, prefix, zipOutput);
 
 			while (results.next()) {
-				csv.savePlot(results.getInt("ycoordinate") * 1d / AbstractStore.SCALING_FACTOR * 1d,
-						results.getInt("xcoordinate") * 1d / AbstractStore.SCALING_FACTOR * 1d, results.getInt("row"),
+				csv.savePlot(results.getInt("ycoordinate") / (double) AbstractStore.SCALING_FACTOR,
+						results.getInt("xcoordinate") / (double) AbstractStore.SCALING_FACTOR, results.getInt("row"),
 						results.getInt("col"));
 			}
 

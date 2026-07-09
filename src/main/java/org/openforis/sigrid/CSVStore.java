@@ -4,10 +4,10 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -74,7 +74,8 @@ public class CSVStore extends AbstractStore{
 	public void closeStore() {
 		for (CSVWriter w : getWriters()) {
 			try {
-				w.close();
+				if( w != null )
+					w.close();
 			} catch (IOException e) {
 				logger.error("error closing the file", e);
 			}
@@ -114,65 +115,57 @@ public class CSVStore extends AbstractStore{
 		setRowCounters(new Integer[ getDistances().length ]);
 
 
-		try {
-			int arrIdx=0;
-			for (Integer d : getDistances()) {
-				File fileOutput = new File(outputDir,  prefix +"_" + distanceBetweenPlots+ "m_"+ d +"_subgrid.csv" + ( zipOutput?".zip":"" ) );
-				logger.info( fileOutput.getAbsolutePath() );
+		int arrIdx=0;
+		for (Integer d : getDistances()) {
+			File fileOutput = new File(outputDir,  prefix +"_" + distanceBetweenPlots+ "m_"+ d +"_subgrid.csv" + ( zipOutput?".zip":"" ) );
+			logger.info( fileOutput.getAbsolutePath() );
 
-				Writer writer = null;
-				CSVWriter w = null;
-				try( FileWriter file = new FileWriter( fileOutput ) ){
-
-					if( zipOutput ) {
-						FileOutputStream fos =  new FileOutputStream( fileOutput );
-						BufferedOutputStream bos = new BufferedOutputStream(fos);
-						ZipOutputStream zos = new ZipOutputStream(bos);
-						getNamePrefix()[arrIdx] = prefix +"_" + distanceBetweenPlots+ "m_"+ d;
-						zos.putNextEntry( new ZipEntry( getNamePrefix()[arrIdx] +"_subgrid_0.csv" ) );
-						getZosForWriterOutputStreams()[arrIdx] = zos;
-						writer = new OutputStreamWriter( zos );
-					}else {
-						writer = new BufferedWriter(file);
-					}
-
-					w =  new CSVWriter(  writer );
-					w.writeNext( getHeaderArray() );
-
-					getWriters()[arrIdx] = w;
-					getRowCounters()[arrIdx] = 0;
-
-					arrIdx++;
-
-				}catch( Exception e) {
-					if( w != null )
-						w.close();
+			try {
+				Writer writer;
+				if( zipOutput ) {
+					FileOutputStream fos =  new FileOutputStream( fileOutput );
+					BufferedOutputStream bos = new BufferedOutputStream(fos);
+					ZipOutputStream zos = new ZipOutputStream(bos);
+					getNamePrefix()[arrIdx] = prefix +"_" + distanceBetweenPlots+ "m_"+ d;
+					zos.putNextEntry( new ZipEntry( getNamePrefix()[arrIdx] +"_subgrid_0.csv" ) );
+					getZosForWriterOutputStreams()[arrIdx] = zos;
+					writer = new OutputStreamWriter( zos, StandardCharsets.UTF_8 );
+				}else {
+					writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( fileOutput ), StandardCharsets.UTF_8 ) );
 				}
 
+				CSVWriter w =  new CSVWriter(  writer );
+				w.writeNext( getHeaderArray() );
+
+				getWriters()[arrIdx] = w;
+				getRowCounters()[arrIdx] = 0;
+
+			}catch( Exception e) {
+				logger.error("Error creating CSV output for subgrid {}", d, e);
 			}
-		} catch (IOException e) {
-			logger.error("Error writing to CSV", e);
+
+			arrIdx++;
 		}
 	}
 
 	public void savePlot( Double latitude, Double longitude, Integer row, Integer column ) {
 
-		String[] csvContents  = new String[ 5 + getDistances().length ];
+		String[] csvContents  = new String[ 3 + getDistances().length ];
 		csvContents[0] = Integer.toString( row ) + "_" + Integer.toString( column );
 		csvContents[1] = Double.toString(latitude);
 		csvContents[2] = Double.toString(longitude);
 
 		int i =0;
-		Boolean[] grids = new Boolean[ getDistances().length ];
+		boolean[] grids = new boolean[ getDistances().length ];
 		for (Integer d : getDistances()) {
-			Boolean grid = (column%d + row%d == 0);
-			csvContents[ 3+i ] = grid.toString();
+			boolean grid = belongsToGrid( row, column, d );
+			csvContents[ 3+i ] = Boolean.toString( grid );
 			grids[i] = grid;
 			i++;
 		}
 
 		for (int j = 0; j < grids.length; j++) {
-			if( Boolean.TRUE.equals( grids[j] ) ) {
+			if( grids[j] && getWriters()[j] != null ) {
 				getWriters()[j].writeNext( csvContents );
 				getRowCounters()[j] = getRowCounters()[j] + 1;
 				if( getRowCounters()[j] % FLUSH_ROWS == 0 ) {
@@ -190,7 +183,7 @@ public class CSVStore extends AbstractStore{
 						getWriters()[j].flush();
 
 						if( getZosForWriterOutputStreams()[j] != null ) {
-							int fileIndex = Math.abs( getRowCounters()[j] / NEW_ENTRY_ROWS );
+							int fileIndex = getRowCounters()[j] / NEW_ENTRY_ROWS;
 
 							String newFileName = getNamePrefix()[j] +"_subgrid_" + fileIndex + ".csv";
 							logger.info( "New Zip file! {}", newFileName );

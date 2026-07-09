@@ -9,6 +9,10 @@ public abstract class AbstractStore {
 		return distances;
 	}
 
+	protected boolean belongsToGrid(Integer row, Integer column, Integer distance) {
+		return row % distance == 0 && column % distance == 0;
+	}
+
 	protected void setDistances(Integer[] distances) {
 		this.distances = distances;
 	}
