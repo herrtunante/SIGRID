@@ -29,7 +29,7 @@ Locate the area for which you need the grid points and then click on the tile. T
 
 You can also find the list with all of grids by tile (10 by 10 degrees) directly [from the Open Foris page](https://openforis.org/fileadmin/SIGRID_1000m_grids/)
 
-Each ZIP file with the points for a tile is composed of two CSV files as the number of points in the tiles close to the equator is above 1.2 million.
+Each ZIP file with the points for a tile is composed of several CSV files as the number of points in the tiles close to the equator is above 1.2 million.
 
 ### Data format
 
@@ -45,13 +45,30 @@ The CSVs that can be downloaded from the links provided in [the KMZ file](https:
 |2790_8991|59.9949504 |29.8955296 |true                         |false                        |true                         |false                        |false                        |false                        |false                        |true                         |false                         |false                         |false                         |false                         |false                         |false                         |false                         |false                         |false                          |
 
 
-The column **CE_ID** is the unique ID of the plot, composed of two number **Y_X**. The **Y** represents the row from the starting point of the grid generation 85 degrees North, 169 degrees East (i.e. 2000_3300 means 2.000 km south of the starting latitude of the grid - which is 85 degrees North - and 3.300 km West of the starting longitude - which is 169 degrees East ). 
+The column **CE_ID** is the unique ID of the plot, composed of two number **Y_X**. The **Y** represents the row from the starting point of the grid generation 85 degrees North, 169 degrees West (i.e. 2000_3300 means 2.000 km south of the starting latitude of the grid - which is 85 degrees North - and 3.300 km West of the starting longitude - which is 169 degrees West ). 
 
 This is followed by the Latitude (**yCoordinate**) and Longitude (**xCoordinate**) of the center of the plot. 
 
 The columns that follow indicate to which subgrid the plot belongs to . All the plots belong to the subgrid 1 (1000 m distance) while 1/4 of the plots belong to the 2x2 km subgrid, 1/9 of th plots belong to the 3x3km subgrid, 1/16 of the plots belong to the 4x4 km subgrid, 1/25 of the plots belong to the 5x5 km grid and so on. The information of the subgrid columns can be combined to filter the plots into any desired subgrid. I.e. the subgrid of plots for 18 x18 km can be obtained combining plots that belong to both the 9x9 km subgrid and the 6x6km subgrid ( using the filters in tools like Excel). 
 
 Having a homogeneus grid like SIGRID allows to generate Collect Earth assessments that can be easily intensified. You could start with an 8x8 km grid and depending on your resources or accuracy goals on the assessment easily move on to the remaining plots in the 4x4 km grid that were not assessed already. Again, you could move to the 2x2km grid following the same logic and even to a 1x1 km grid to achieve maximum accuracy.
+
+## Download SIGRID by country
+
+The grid is also published pre-cut by country, so you don't need to download the 10x10 degree tiles and clip them yourself. There is one ZIP file per country, available from [the Open Foris page](https://www.openforis.org/fileadmin/SIGRID_1000m_grids/per_country).
+
+The easiest way to browse them is through Google Earth: open the [SIGRID country grids file (KMZ)](https://raw.githubusercontent.com/herrtunante/SIGRID/main/resources/SIGRID_country_grids.kmz) (also found in the `resources` folder of this project), click on the placemark of a country and use the download link in the popup.
+
+Each country ZIP contains:
+
+- `<Country>_1x1km.csv` — the full 1x1 km grid for the country, with the same subgrid columns as the tile format described above. In addition, every plot is tagged with the province (**ADM1NM**) and district (**ADM2NM**) it falls in, based on the UN 2023 administrative boundaries.
+- `<Country>_2x2km.csv`, `<Country>_3x3km.csv` ... `<Country>_100x100km.csv` — one CSV per sampling density. These are exact subsets of the 1x1 km file (the **CE_ID**s are consistent), so an assessment started at a coarse density can later be intensified with the finer files, as described above.
+- `<Country>_plot_counts_by_district.csv` — the number of plots per province/district at each density.
+- A README.txt describing how the files were generated.
+
+For some countries the UN 2023 boundaries do not include district names; those are published as `<Country>_grids_no_districts.zip` and their plots carry no province/district columns.
+
+Note for Collect Earth users: Google Earth degrades with files above ~2,000 placemarks, so for larger files use `Tools → Utilities → Divide large CSV files` in Collect Earth (aggregating by the **ADM1NM** or **ADM2NM** column works well).
 
 ## How to reproduce the grid
 
