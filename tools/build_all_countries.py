@@ -544,7 +544,9 @@ def finalise_country(iso2, meta, args, stats, run_stamp):
 
     combined = os.path.join(args.tmp, f"{iso2}_combined.csv")
     total, wrote_header, provs, canon = 0, False, set(), None
-    with open(combined, "w", newline="") as out_f:
+    # encoding must be explicit: on Windows open() defaults to cp1252, which
+    # cannot encode many UN district names (e.g. Yemen's Hadramawt with dots)
+    with open(combined, "w", newline="", encoding="utf-8") as out_f:
         for fn in sorted(os.listdir(part_dir)):
             d = pd.read_csv(os.path.join(part_dir, fn))
             if canon is None:
@@ -720,7 +722,7 @@ def main():
               "md5", "status"]
     write_header = not os.path.exists(manifest)
     flagged = 0
-    with open(manifest, "a", newline="") as mf:
+    with open(manifest, "a", newline="", encoding="utf-8") as mf:
         w = csv.DictWriter(mf, fieldnames=fields)
         if write_header:
             w.writeheader()
